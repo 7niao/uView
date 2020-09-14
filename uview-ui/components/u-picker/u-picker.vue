@@ -542,18 +542,20 @@ export default {
 				if (this.params.city) this.city = this.valueArr[i++];
 				if (this.params.area) this.area = this.valueArr[i++];
 			} else if (this.mode == 'multiSelector') {
-				let index = null;
-				// 对比前后两个数组，寻找变更的是哪一列，如果某一个元素不同，即可判定该列发生了变化
-				this.defaultSelector.map((val, idx) => {
-					if (val != e.detail.value[idx]) index = idx;
-				});
-				// 为了让用户对多列变化时，对动态设置其他列的变更
-				if (index != null) {
-					this.$emit('columnchange', {
-						column: index,
-						index: e.detail.value[index]
-					});
-				}
+				// 将picker-view的@change的回调参数传给父组件
+				this.$emit('columnchange', e.detail.value)
+				// let index = null;
+				// // 对比前后两个数组，寻找变更的是哪一列，如果某一个元素不同，即可判定该列发生了变化
+				// this.defaultSelector.map((val, idx) => {
+				// 	if (val != e.detail.value[idx]) index = idx;
+				// });
+				// // 为了让用户对多列变化时，对动态设置其他列的变更
+				// if (index != null) {
+				// 	this.$emit('columnchange', {
+				// 		column: index,
+				// 		index: e.detail.value[index]
+				// 	});
+				// }
 			}
 		},
 		// 用户点击确定按钮
